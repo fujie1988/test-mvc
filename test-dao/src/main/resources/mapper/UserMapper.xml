@@ -95,4 +95,16 @@
         </where>
     </select>
 
+
+    <!-- 根据User查询记录集合 -->
+    <select id="queryListByCondition" parameterType="map" resultMap="userMap">
+        select <include refid="userBaseColumn"/>
+        from user
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="name != null">and name=#{name}</if>
+            <if test="password != null">and password=#{password}</if>
+        </where>
+    </select>
+
 </mapper>

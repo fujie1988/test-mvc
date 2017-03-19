@@ -11,9 +11,11 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 
+
 <!--
-    <context:property-placeholder location="classpath:config-dao.properties" ignore-unresolvable="true" />
+    <context:property-placeholder location="classpath:properties/config-dao.properties" ignore-unresolvable="true" />
 -->
+
 
     <context:component-scan base-package="com.lianjia.test.dao" />
 
