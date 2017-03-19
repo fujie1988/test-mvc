@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.lianjia.test.dao.impl.UserDao">
+
+    <resultMap id="userMap" type="com.lianjia.test.model.User">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="password" property="password" />
+    </resultMap>
+
+    <sql id ="userColumn">
+        <trim suffix="" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="password != null">password,</if>
+        </trim>
+    </sql>
+    <sql id="userValue">
+        <trim suffix="" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="password != null">#{password},</if>
+        </trim>
+    </sql>
+    <sql id="userBaseColumn">
+        <trim suffix="" suffixOverrides=",">
+            id,
+            name,
+            password,
+        </trim>
+    </sql>
+
+    <!-- 保存User记录 -->
+    <insert id="insert" parameterType="com.lianjia.test.model.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user (<include refid="userColumn"/>)
+        values (<include refid="userValue"/>)
+    </insert>
+
+    <!-- 批量保存user记录 -->
+    <insert id="insertBatch" parameterType="java.util.Collection" >
+        insert into user ( <include refid="userBaseColumn"/> )
+        values
+        <foreach collection="list" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{item.id},
+                #{item.name},
+                #{item.password},
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 更新user记录 -->
+    <update id="update" parameterType="map">
+        update user
+        <set>
+            <if test="entity.name != null"> path=#{entity.name} ,</if>
+            <if test="entity.password != null"> data=#{entity.password} ,</if>
+        </set>
+        where id = #{entity.id}
+    </update>
+
+    <delete id="deleteByPk" parameterType="int">
+        delete from user
+        where id = #{id}
+    </delete>
+
+
+    <!-- 根据id查询user记录 -->
+    <select id="queryByPk" parameterType="int" resultMap="userMap">
+        select
+        <if test="includes == null ">
+            <include refid="userBaseColumn"/>
+        </if>
+        <if test="includes !=null ">
+            <foreach collection="includes" item="field" open="" close="" separator=",">
+                ${field}
+            </foreach>
+        </if>
+        from user
+        where id = #{pk}
+    </select>
+
+    <!-- 根据user查询记录集合 -->
+    <select id="queryCountByCondition" parameterType="map" resultType="java.lang.Integer">
+        select count(1)
+        from user
+        <where>
+            <if test="id != null">and id=#{id}</if>
+            <if test="name != null">and name=#{name}</if>
+            <if test="password != null">and password=#{password}</if>
+        </where>
+    </select>
+
+</mapper>

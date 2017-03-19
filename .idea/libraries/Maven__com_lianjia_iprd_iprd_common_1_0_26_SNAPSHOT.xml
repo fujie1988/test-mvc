@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.lianjia.iprd:iprd-common:1.0.26-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/lianjia/iprd/iprd-common/1.0.26-SNAPSHOT/iprd-common-1.0.26-20170120.140731-4.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/lianjia/iprd/iprd-common/1.0.26-SNAPSHOT/iprd-common-1.0.26-20170120.140731-4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/lianjia/iprd/iprd-common/1.0.26-SNAPSHOT/iprd-common-1.0.26-20170120.140731-4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

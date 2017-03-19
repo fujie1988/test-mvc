@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+    <dubbo:application name="test-dubbo"/>
+
+    <!-- 注冊地址-->
+    <dubbo:registry id="myRegistry" protocol="zookeeper" address="${dubbo.zookeeper.address}" default="true"/>
+
+    <dubbo:monitor protocol="registry" />
+
+    <!-- 用dubbo协议在20880端口暴露服务  -->
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}"/>
+
+<!--
+    &lt;!&ndash; 超时时间，重试次数。在类和方法上可以单独配置 &ndash;&gt;
+    <dubbo:consumer timeout="5000" retries="1" filter="dubboFilter" />
+    <dubbo:provider timeout="5000" retries="1"  filter="dubboFilter"/>
+-->
+
+
+    <import resource="applicationContext-dubbo-service.xml" />
+
+</beans>
+

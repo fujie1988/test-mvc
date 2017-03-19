@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<included>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- 文件输出日志 (文件大小策略进行文件输出，超过指定大小对文件备份) -->
+    <appender name="INFO-FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>/home/work/var/log/test/test.info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/home/work/var/log/test/test.info.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>20</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR-FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>/home/work/var/log/test/test.error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/home/work/var/log/test/test.error.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>20</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.apache.shiro" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <appender name="SQL-FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>/home/work/var/log/test/sql/sql.info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/home/work/var/log/test/sql/sql.info.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>20</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- log4jdbc begin -->
+    <!-- 记录系统执行过的sql语句 -->
+    <logger name="jdbc.sqlonly" additivity="false" level="OFF">
+    </logger>
+    <!-- 记录sql执行的时间，可以分析耗时的sql语句 -->
+    <logger name="jdbc.sqltiming"  additivity="false" level="WARN">
+        <appender-ref ref="SQL-FILE"/>
+    </logger>
+    <!-- 记录除了ResultSet外的所有JDBC调用情况 -->
+    <logger name="jdbc.audit" additivity="false" level="OFF" >
+    </logger>
+    <!-- 记录返回结果集信息 -->
+    <logger name="jdbc.resultset" additivity="false" level="OFF" >
+    </logger>
+    <logger name="jdbc.resultsettable" additivity="false" level="OFF" >
+        <appender-ref ref="SQL-FILE"/>
+    </logger>
+    <!-- 记录数据库连接和释放信息，可记录当前的数据库连接数，便于诊断连接是否释放 -->
+    <logger name="jdbc.connection" additivity="false" level="OFF" >
+        <appender-ref ref="SQL-FILE"/>
+    </logger>
+
+    <!-- log4jdbc end -->
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="INFO-FILE" />
+        <appender-ref ref="ERROR-FILE" />
+    </root>
+
+
+</included>

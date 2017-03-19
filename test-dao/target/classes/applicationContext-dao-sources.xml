@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="commonDataSource" parent="dataSourceParent">
+        <property name="jdbcUrl" value="${common.jdbc.url}" />
+        <property name="user" value="${common.jdbc.username}" />
+        <property name="password" value="${common.jdbc.password}" />
+    </bean>
+
+    <import resource="applicationContext-dao-parent.xml" />
+
+</beans>

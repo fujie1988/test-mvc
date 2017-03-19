@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" />
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="minIdle" value="${redis.pool.minIdle}" />
+    </bean>
+
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <ref bean="shardInfo-1" />
+                <ref bean="shardInfo-2" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="shardInfo-1" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="${redis.shard-1.host}" />
+        <constructor-arg index="1" value="${redis.shard-1.port}"  type="int"/>
+        <constructor-arg index="2" value="${redis.timeout}" type="int"/>
+        <constructor-arg index="3" value="shard-1" />
+        <property name="password" value="${redis.shard-1.password}"/>
+    </bean>
+    <bean id="shardInfo-2" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="${redis.shard-2.host}" />
+        <constructor-arg index="1" value="${redis.shard-2.port}"  type="int"/>
+        <constructor-arg index="2" value="${redis.timeout}" type="int"/>
+        <constructor-arg index="3" value="shard-2" />
+        <property name="password" value="${redis.shard-2.password}"/>
+    </bean>
+
+    <bean id="sessionShardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <ref bean="sessionShardInfo-1" />
+                <ref bean="sessionShardInfo-2" />
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sessionShardInfo-1" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="${redis.sessionShard-1.host}" />
+        <constructor-arg index="1" value="${redis.sessionShard-1.port}"  type="int"/>
+        <constructor-arg index="2" value="${redis.timeout}" type="int"/>
+        <constructor-arg index="3" value="sessionShard-1" />
+        <property name="password" value="${redis.sessionShard-1.password}"/>
+    </bean>
+    <bean id="sessionShardInfo-2" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" value="${redis.sessionShard-2.host}" />
+        <constructor-arg index="1" value="${redis.sessionShard-2.port}"  type="int"/>
+        <constructor-arg index="2" value="${redis.timeout}" type="int"/>
+        <constructor-arg index="3" value="sessionShard-2" />
+        <property name="password" value="${redis.sessionShard-2.password}"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/test-api/test-api.iml" filepath="$PROJECT_DIR$/test-api/test-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-common/test-common.iml" filepath="$PROJECT_DIR$/test-common/test-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-dao/test-dao.iml" filepath="$PROJECT_DIR$/test-dao/test-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-model/test-model.iml" filepath="$PROJECT_DIR$/test-model/test-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-service/test-service.iml" filepath="$PROJECT_DIR$/test-service/test-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test-web/test-web.iml" filepath="$PROJECT_DIR$/test-web/test-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testproject.iml" filepath="$PROJECT_DIR$/testproject.iml" />
+    </modules>
+  </component>
+</project>
